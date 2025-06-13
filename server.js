@@ -7,7 +7,7 @@ const path = require('path');
 const userRoutes = require('./src/routes/userRoutes');
 const carAnnouncementRoutes = require('./src/routes/carAnnouncementRoutes');
 const favorisRoutes = require('./src/routes/favorisRoutes'); // 💡 ajout favoris
-
+const ratingRoutes = require('./src/routes/ratingroutes');
 
 const app = express();
 app.use(fileUpload());
@@ -21,6 +21,7 @@ app.use(cors());
 app.use("/user", userRoutes);
 app.use("/carAnnouncement", carAnnouncementRoutes);
 app.use("/favoris", favorisRoutes); 
+app.use('/ratings', ratingRoutes);
 // 📤 Upload d’image de voiture
 app.post('/uploadCarImage', (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
@@ -35,6 +36,8 @@ app.post('/uploadCarImage', (req, res) => {
     res.json({ fileName: uploadedFile.name });
   });
 });
+
+
 
 // 🖼️ Récupération d'images
 app.use('/fetchCarImages', express.static(path.join(__dirname, 'carImage')));
